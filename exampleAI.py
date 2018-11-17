@@ -7,6 +7,7 @@ goldArr=[]
 engArr=[]
 myCells=[]
 target=(0,0)
+
 def goldEnergyArr():
 
     for x in range (g.width):
@@ -32,14 +33,18 @@ def attackTarget(xt,yt):
 
     print("myclose",myclose)
 
-    if(xt<myclose[0]):
+    if(xt<myclose[0] and g.cdTime<10):
         print(g.AttackCell(myclose[0]-1,myclose[1]))
-    if(xt>myclose[0]):
+        print((myclose[0]-1,myclose[1]))
+    if(xt>myclose[0] and g.cdTime<10):
         print(g.AttackCell(myclose[0]+1,myclose[1]))
-    if(yt<myclose[1]):
+        print((myclose[0]+1,myclose[1]))
+    if(yt<myclose[1] and g.cdTime<10):
         print(g.AttackCell(myclose[0],myclose[1]-1))
-    if(yt>myclose[1]):
+        print((myclose[0],myclose[1]-1))
+    if(yt>myclose[1] and g.cdTime<10 ):
         print(g.AttackCell(myclose[0],myclose[1]+1))
+        print((myclose[0],myclose[1]+1))
 
 
 def getGold():
@@ -112,90 +117,14 @@ if __name__ == '__main__':
         goldEnergyArr()
 
         while True:
-            getMyCells()
+            if(g.cdTime<10):
+                getMyCells()
             #base()
-            target=getGold()
-            print ("target",target)
-            attackTarget(target[0],target[1])
+                target=getGold()
+                print ("target",target)
+                attackTarget(target[0],target[1])
+            g.Refresh()
 
 
-        # while True:
-        #     getMyCells()
-        #     base()
-        #     getGold()
-        #
-        #     g.Refresh()
     else:
         print("Failed to join the game!")
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # for x in range(g.width):
-    #     for y in range(g.height):
-    #         # Get a cell
-    #         c = g.GetCell(x,y)
-    #         # If the cell I got is mine
-    #         if c.owner == g.uid:
-    #             # Pick a random direction based on current cell
-    #
-    #             cut=0
-    #             crt=0
-    #             clt=0
-    #             cdt=0
-    #
-    #             cu = g.GetCell(x,y-1)
-    #             if cu!= None:
-    #                 cut =  cu.takeTime
-    #             cr = g.GetCell(x+1,y)
-    #             if cr!= None:
-    #                 crt=cr.takeTime
-    #             cl = g.GetCell(x-1,y)
-    #             if cl!= None:
-    #                 clt=cl.takeTime
-    #             cd = g.GetCell(x,y+1)
-    #             if cd!= None:
-    #                 cdt=cd.takeTime
-    #
-    #             minTime = min(cut,crt,clt,cdt)
-    #             minCell =cu
-    #
-    #             if(cu!=None):
-    #                 if(minTime==cu.takeTime or cu.cellType=="gold" or cu.cellType=="energy"):
-    #                     minCell=cu
-    #             if(cr!=None):
-    #                 if(minTime==cr.takeTime or cr.cellType=="gold" or cr.cellType=="energy"):
-    #                     minCell=cr
-    #             if(cl!=None):
-    #                 if(minTime==cl.takeTime or cl.cellType=="gold" or cl.cellType=="energy"):
-    #                     minCell=cl
-    #             if(cd!=None):
-    #                 if(minTime==cd.takeTime or cd.cellType=="gold" or cd.cellType=="energy"):
-    #                     minCell=cd
-    #
-    #
-    #
-    #             #d = random.choice([(0,1), (0,-1), (1, 0), (-1,0)])
-    #             # Get that adjacent cell
-    #             #cc = g.GetCell(x+d[0], y+d[1])
-    #
-    #             if minCell!=None:
-    #                 if minCell.owner!=g.uid:
-    #                     if g.energy>30:
-    #                         print(g.AttackCell(minCell.x,minCell.y,True))
-    #                     else:
-    #                         print(g.AttackCell(minCell.x,minCell.y))
-    #             if g.baseNum < 3 and g.gold>=60:
-    #                 print(g.BuildBase(x,y))
-    #             # If that cell is valid(current cell + direction could be
-    #             #if g.baseNum == 3 and g.gold>50:
-    #                 #print(MultiAttack(minCell.x,minCell.y))
